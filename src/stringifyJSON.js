@@ -7,15 +7,19 @@ var stringifyJSON = function(obj) {
     var newObj = "";
   function typeCheck(thing){
   	if( typeof thing === "boolean"){
-  		return thing.toString();
+  		  return thing.toString();
   	} else if(typeof thing === 'string'){
-  		return '"' + thing + '"';
+  		  return '"' + thing + '"';
   	} else if(typeof thing === 'number'){
-  		return thing.toString();
+  		  return thing.toString();
   	} else if(Array.isArray(thing)){
-  		return thing.toString();
+      if(thing[0]){
+        return stringifyJSON(thing);
+      } else {
+  		  return '[' + thing.toString() + ']';
+      }
   	} else if(typeof thing === 'object' && thing !== null){
-  		return thing.toString(); //COME BACK TO 
+  		  return thing.toString(); //COME BACK TO 
     } else if(thing === null & Array.isArray(thing)){
         return '[]';
     } else if(thing === null){
