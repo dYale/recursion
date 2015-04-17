@@ -4,5 +4,39 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  // your code goes here
+    var newObj = "";
+  function typeCheck(thing){
+  	if( typeof thing === "boolean"){
+  		return thing.toString();
+  	} else if(typeof thing === 'string'){
+  		return '"' + thing + '"';
+  	} else if(typeof thing === 'number'){
+  		return thing.toString();
+  	} else if(Array.isArray(thing)){
+  		return thing.toString();
+  	} else if(typeof thing === 'object' && thing !== null){
+  		return thing.toString(); //COME BACK TO 
+    } else if(thing === null & Array.isArray(thing)){
+        return '[]';
+    } else if(thing === null){
+        return 'null';
+    };
+  };
+    
+  if(Array.isArray(obj)){
+      for(var i = 0, j = obj.length; i < j; i++){
+          newObj = newObj + typeCheck(obj[i]) + (i < j - 1 ? ",": "") ;
+      }
+     
+      newObj = '[' + newObj + ']';
+      
+  } else if(typeof obj === 'object' && obj !== null){
+        for(var key in obj){
+            newObj = newObj + typeCheck(obj[key]);
+        }
+  } else {
+            newObj = newObj + typeCheck(obj);
+    }
+    return newObj;
 };
+
